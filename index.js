@@ -64,6 +64,9 @@ module.exports.typeOf = typeOf;
  * @param {Array} array: the collection over which to iterate
  * @param {Number} num: the number determining where to stop pushing into the array
  * @return {Array} newArray: an array of the relevant indexes
+ * Edge Cases: If there is no number argument, will return the first element in the array.
+ * If the number is greater than the array, the entire array will be returned. If the 
+ * number is negative, or anything but an array is passed in, an empty array will be returned.
  */
 
 function first(array, num){
@@ -81,10 +84,14 @@ return newArray;
 module.exports.first = first;
 /**
  * last: Designed to loop over an array and return the indexes from a given number
- * to the end of the array
+ * to the end of the array.
  * @param {Array} array: the collection over which to iterate
  * @param {Number} num: the number determining where to start pushing in the array
  * @return {Array} newArray: an array of the relevant indexes
+ * Edge Cases: If no number is given, will return the last element in the array. If 
+ * the number is greater than the array, the entire array will be returned. If a 
+ * negative number is given, or anything but an array is given, an empty array will
+ * be returned. 
  */
 
 function last(array, num) {
@@ -104,6 +111,8 @@ module.exports.last = last;
  * @param {Array} array: the collection over which to iterate.
  * @param {Any Datatype} value: the value held by number we're looking for
  * @return {Number} i: the index of the argument value
+ * Edge Case: If the value appears more than once, the number of the first instance
+ * will be returned.
  */
 
 function indexOf(array, value) {
@@ -153,8 +162,8 @@ module.exports.unique = unique;
  * filter: designed to run a test on each element of an array, and return an array of 
  * only those elements which pass the test
  * @param {Array} array: the array to be looped and tested
- * @param {Function} test: the test run on each element that will decide wnether it makes
- * it to the new array or not
+ * @param {Function} test: the test run on each element, index and the collection
+ * that will decide whether it makes it to the new array or not.
  * @return {Array} resultArray: the array of elements that have passed the test
  */
 
@@ -173,7 +182,8 @@ module.exports.filter = filter;
 /**
  * reject: designed to create an array of only those elements which do not pass a test
  * @param {Array} array: the collection to be tested
- * @param {Function} test: the test that will determine the result group
+ * @param {Function} test: the test run on the each element and index, and 
+ * the collection that will determine the result group.
  * @return {Array} resultArray: the array of elements that failed the test
  */
 
@@ -248,7 +258,7 @@ module.exports.map = map;
  */
 
 function pluck(array, key){
-    
+   
    return map(array, function(element, index, collection){
        return element[key];
     });
@@ -260,7 +270,10 @@ module.exports.map = map;
 /**
  * every: designed to make sure that every element of a collection passes a test 
  * @param {Array or Object} collection: the collection to be tested 
- * @return {Boolean}: returns true only if all elements pass the test 
+ * @param {Function} test: the test run on each element of the collection.
+ * @return {Boolean}: returns true only if all elements pass the test.
+ * Edge Cases: If the function is not given, the function determines whether all the 
+ * values in the collection are truthy, if one is falsy the function will return false.
  */
 
 function every(collection, test) {
@@ -297,6 +310,9 @@ module.exports.every = every;
  * @param {Array or Object} collection: the collection being tested
  * @param {Function} test: the test run on each element
  * @return {Boolean}: return the result of the test 
+ * Edge Cases: If the test is not given, the function will return true when it comes 
+ * across a single truthy value in the collection. It will return falsy if all elements
+ * in the collection are falsy.
  */
 
 function some(collection, test) {
@@ -330,7 +346,12 @@ module.exports.some = some;
  * reduce: Designed to take many elements and reduce them to one value 
  * @param {Array} array: the iteratee, the collection being reduced
  * @param {Function} test: the way we are going to work on our values
- * @param {Any Datatype} seed: the starting value that starts the train moving, a placeholder
+ * @param {Any Datatype} seed: the starting value that becomes our previousResult. It will
+ * either be given, or will become the first element in my array
+ * @return {Any Data Type} previousResult: the function will return whatever previousResult
+ * has become. The data type can be decided beforehand by giving the function a seed.
+ * If no seed is given, previousResult will assume the data type of the first element 
+ * in the array.
  */
 
 function reduce(array, test, seed) {
@@ -357,6 +378,13 @@ function reduce(array, test, seed) {
 }
 
 module.exports.reduce = reduce;
+
+/**
+ * extend: designed to take any number of objects and combine them into one array
+ * @param {Object} object1: the first object that the rest will be added to
+ * @param {Array} ...arrOfObjects: the rest of my arguments that are contained in an array
+ * @return {object} object1: the first object with all the additional values added. 
+ */
 
 function extend(object1, ...arrOfObjects){
    for(let i = 0; i <= arrOfObjects.length - 1; i++) {
