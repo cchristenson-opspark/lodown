@@ -1,6 +1,6 @@
 {
   "name": "lodown-cchristenson-opspark",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "My first npm library for lodown",
   "main": "index.js",
   "directories": {

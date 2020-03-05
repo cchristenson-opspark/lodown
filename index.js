@@ -380,7 +380,7 @@ function reduce(array, test, seed) {
 module.exports.reduce = reduce;
 
 /**
- * extend: designed to take any number of objects and combine them into one array
+ * extend: designed to take any number of objects and combine them into one object.
  * @param {Object} object1: the first object that the rest will be added to
  * @param {Array} ...arrOfObjects: the rest of my arguments that are contained in an array
  * @return {object} object1: the first object with all the additional values added. 
